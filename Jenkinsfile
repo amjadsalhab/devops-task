@@ -15,7 +15,7 @@ pipeline {
     }
     stages {
        stage('General Information' ) {
-            agent { node 'aws-cli' }
+            agent { node 'default' }
             steps {
                 script {
                     sh '''
@@ -24,7 +24,7 @@ pipeline {
                         echo "ECR Registy is $ECR_REGISTRY"
                         echo "ECS Cluster is $ECS_CLUSTER"
                         echo "ECS Task Defention is $ECS_TASK_DEFENETION"
-                        echo "Commit ID is $COMMIT_ID"
+                        echo "Commit ID is $GIT_COMMIT"
                     '''
                     //slackSend color: 'good', channel: 'deployment-notifications', failOnError: true, message: "${env.ENVIRONMENT} ${env.SERVICE_NAME} - deployment started - ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
                 }
@@ -37,7 +37,7 @@ pipeline {
                     sh '''
                     /kaniko/executor --dockerfile ${PWD}/${SERVICE_PATH}/Dockerfile \
                               --context ${PWD}/${SERVICE_PATH} \
-                              --destination="$ECR_REGISTRY" \
+                              --destination="$ECR_REGISTRY:$GIT_COMMIT" \
                               --build-arg ENVIRONMENT=$ENVIRONMENT \
                               --verbosity error
                     '''
@@ -69,21 +69,19 @@ pipeline {
             } 
         }       
     }
-    
+    /*
     post {
         always {
             cleanWs()
         }
-        /*
+        
         success {
             slackSend color: 'good', channel: 'deployment-notifications', failOnError: true, message: "${env.ENVIRONMENT} ${env.SERVICE_NAME} - Deployed successfully! :heavy_check_mark: :tada: - ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         }
         failure {
             slackSend color: 'danger', channel: 'deployment-notifications', failOnError: true, message: "${env.ENVIRONMENT} ${env.SERVICE_NAME} - Build failed :x: - ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         }
-        */
+        
     }
-    
-   
-   
+    */ 
 }
