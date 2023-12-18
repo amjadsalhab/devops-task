@@ -22,11 +22,11 @@ jobs:
         if: contains(steps.changed-files.outputs.all_changed_files, 'orders/')
         run: |
          pip install --no-cache-dir -r $GITHUB_WORKSPACE/orders/requirements.txt
-         python -m unittest $GITHUB_WORKSPACE/orders/tests.py
+         python -m unittest $GITHUB_WORKSPACE/orders/tests/tests.py
          
       - name: Run unit tests for users
         if: contains(steps.changed-files.outputs.all_changed_files, 'users/')
         run: |
          pip install --no-cache-dir -r $GITHUB_WORKSPACE/users/requirements.txt
-         python -m unittest $GITHUB_WORKSPACE/users/tests.py
+         python -m unittest $GITHUB_WORKSPACE/users/tests/tests.py
         

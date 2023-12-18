@@ -20,8 +20,8 @@ def create_app(test_config=None):
     #db.create_all()
     return app, db
 
-environment=os.getenv('ENVIRONMENT')
-service_name=os.getenv('SERVICE_NAME')
+environment=os.getenv('ENVIRONMENT','local')
+service_name=os.getenv('SERVICE_NAME','orders')
 
 
 
