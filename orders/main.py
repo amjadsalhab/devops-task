@@ -6,7 +6,6 @@ import os
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    
     if test_config is None:
         # Load the configuration from the SSM Parameter Store as in your main.py
         app.config['SQLALCHEMY_DATABASE_URI'] = db_connection_string
@@ -20,8 +19,8 @@ def create_app(test_config=None):
     #db.create_all()
     return app, db
 
-environment=os.getenv('ENVIRONMENT')
-service_name=os.getenv('SERVICE_NAME')
+environment=os.getenv('ENVIRONMENT','test')
+service_name=os.getenv('SERVICE_NAME','orders')
 
 
 
@@ -32,12 +31,12 @@ ssm_client = boto3.client('ssm', region_name='us-east-1')
 db_connection_string = ssm_client.get_parameter(
     Name=f"/{environment}/{service_name}/db_connection_string",  # replace with the name of your parameter
     WithDecryption=True  # if the parameter value is encrypted
-)['Parameter']['Value']
+)['Parameter']['Value'] if environment is not "test" else "sqlite:///test.db"
 
 user_service_base_url = ssm_client.get_parameter(
     Name=f"/{environment}/{service_name}/user_service_base_url",  # replace with the name of your parameter
     WithDecryption=True  # if the parameter value is encrypted
-)['Parameter']['Value']
+)['Parameter']['Value'] if environment is not "test" else ""
 
 
 app,db=create_app()
