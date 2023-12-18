@@ -27,8 +27,8 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
             ENVIRONMENT="STAGING"
           fi
-          curl -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_KEY }} \
-            "${{ secrets.JENKINS_HOST }}/job/DEPLOYMENTS/job/$ENVIRONMENT/job/ORDERS/build?token=${JENKINS_TOKEN_NAME}"
+          curl -X POST  -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_KEY }} \
+            "${{ secrets.JENKINS_HOST }}/job/DEPLOYMENTS/job/$ENVIRONMENT/job/ORDERS/buildWithParameters"
 
       - name: Trigger Jenkins job for users
         if: contains(steps.changed-files.outputs.all_changed_files, 'users/')
@@ -38,7 +38,7 @@ jobs:
           elif [[ "${{ github.ref }}" == "refs/heads/staging" ]]; then
             ENVIRONMENT="STAGING"
           fi
-          curl -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_KEY }} \
-            "${{ secrets.JENKINS_HOST }}/job/DEPLOYMENTS/job/$ENVIRONMENT/job/USERS/build?token=${JENKINS_TOKEN_NAME}"
+          curl -X POST  -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_KEY }} \
+            "${{ secrets.JENKINS_HOST }}/job/DEPLOYMENTS/job/PRODUCTION/job/USERS/buildWithParameters"
 
 
