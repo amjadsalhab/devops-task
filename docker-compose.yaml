@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  user-service:
+    build: 
+      context: ./users
+      args:
+        - ENVIRONMENT=local
+    ports:
+      - 8098:80
+    networks:
+      - local-network
+    volumes:
+      - type: bind
+        source: ~/.aws
+        target: /root/.aws
+
+  order-service:
+    build: 
+      context: ./orders
+      args:
+        - ENVIRONMENT=local
+    ports:
+      - 8099:80
+    networks:
+      - local-network
+    volumes:
+      - type: bind
+        source: ~/.aws
+        target: /root/.aws
+
+networks:
+  local-network:
+    driver: bridge
