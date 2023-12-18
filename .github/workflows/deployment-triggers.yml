@@ -31,7 +31,7 @@ jobs:
             "${{ secrets.JENKINS_HOST }}/job/DEPLOYMENTS/job/$ENVIRONMENT/job/ORDERS/build?token=${JENKINS_TOKEN_NAME}"
 
       - name: Trigger Jenkins job for users
-        if: contains(steps.changed-files.outputs.all_changed_files, 'orders/')
+        if: contains(steps.changed-files.outputs.all_changed_files, 'users/')
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             ENVIRONMENT="PRODUCTION"
