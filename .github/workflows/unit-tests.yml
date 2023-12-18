@@ -1,0 +1,29 @@
+name: Unit Tests
+on: 
+  push:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    container: 
+      image: python:3.8
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40.2.0
+        
+      - name: Run unit tests for orders
+        if: contains(steps.changed-files.outputs.all_changed_files, 'orders/')
+        run: |
+         pip install --no-cache-dir -r $GITHUB_WORKSPACE/orders/requirements.txt
+         python -m unittest $GITHUB_WORKSPACE/orders/tests.py
+         
+      - name: Run unit tests for users
+        if: contains(steps.changed-files.outputs.all_changed_files, 'users/')
+        run: |
+         pip install --no-cache-dir -r $GITHUB_WORKSPACE/users/requirements.txt
+         python -m unittest $GITHUB_WORKSPACE/users/tests.py
+        
