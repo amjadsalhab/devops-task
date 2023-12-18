@@ -19,7 +19,7 @@ def create_app(test_config=None):
     #db.create_all()
     return app, db
 
-environment=os.getenv('ENVIRONMENT','local')
+environment=os.getenv('ENVIRONMENT','test')
 service_name=os.getenv('SERVICE_NAME','orders')
 
 
@@ -31,12 +31,12 @@ ssm_client = boto3.client('ssm', region_name='us-east-1')
 db_connection_string = ssm_client.get_parameter(
     Name=f"/{environment}/{service_name}/db_connection_string",  # replace with the name of your parameter
     WithDecryption=True  # if the parameter value is encrypted
-)['Parameter']['Value']
+)['Parameter']['Value'] if environment is not "test" else ""
 
 user_service_base_url = ssm_client.get_parameter(
     Name=f"/{environment}/{service_name}/user_service_base_url",  # replace with the name of your parameter
     WithDecryption=True  # if the parameter value is encrypted
-)['Parameter']['Value']
+)['Parameter']['Value'] if environment is not "test" else ""
 
 
 app,db=create_app()
