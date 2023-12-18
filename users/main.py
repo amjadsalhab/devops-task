@@ -28,7 +28,7 @@ ssm_client = boto3.client('ssm' , region_name='us-east-1')
 db_connection_string = ssm_client.get_parameter(
     Name=f"/{environment}/{service_name}/db_connection_string",  # replace with the name of your parameter
     WithDecryption=True  # if the parameter value is encrypted
-)['Parameter']['Value'] if environment is not "test" else ""
+)['Parameter']['Value'] if environment is not "test" else "sqlite:///test.db"
 
 app,db=create_app()
 
