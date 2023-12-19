@@ -6,9 +6,6 @@ import os
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    
-    
-    
     if test_config is None:
         # Load the configuration from the SSM Parameter Store as in your main.py
         app.config['SQLALCHEMY_DATABASE_URI'] = db_connection_string
