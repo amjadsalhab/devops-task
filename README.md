@@ -25,7 +25,7 @@ The Order Service provides the following endpoints:
 - `GET /order/<int:order_id>`: Retrieves a specific order by its ID, along with the data of the user who placed the order.
 - `GET /orders/all`: Retrieves all orders, along with the data of the users who placed them.
 
-## Running the Services
+## Running Services Locally
 Docker Compose File Summary
 
 Services: Defines two separate services, user-service and order-service, which correspond to the two Flask applications you have for users and orders.
@@ -78,7 +78,9 @@ Remember to replace ~/.aws with the actual path to your AWS credentials if it's 
 Jenkins deployment jobs are here :- https://jenkins.amjad-salhab.com/job/DEPLOYMENTS/
 
 Jenkins username/password
+
 username:- chalktalk
+
 password:- chalktalk123
 
 Deployment pipeline are straight forward and consist of the follwoing stages:-
@@ -103,6 +105,7 @@ Jobs url :- https://jenkins.amjad-salhab.com/job/DB_BACKUPS/
 Jenkins username/password
 
 username:- chalktalk
+
 password:- chalktalk123
 
 ./mysql-backup.sh --environment environment_name --mode backup_mode --database database_name --creds-file-path path_to_credentials_file [--tables table1,table2,...]
