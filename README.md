@@ -1,5 +1,5 @@
-# devops-task
-devops task for ChalkTalk interview process
+# DevOps-Task
+Devops task for ChalkTalk interview process
 
 ## Flask Services
 
@@ -73,10 +73,9 @@ Remember to replace ~/.aws with the actual path to your AWS credentials if it's 
 
 
 
-## deploying services
+## Deploying services
 
 Jenkins deployment jobs are here :- https://jenkins.amjad-salhab.com/job/DEPLOYMENTS/
-Jobs url :- https://jenkins.amjad-salhab.com/job/DB_BACKUPS/
 
 Jenkins username/password
 username:- chalktalk
@@ -92,15 +91,17 @@ Deployment pipeline are straight forward and consist of the follwoing stages:-
 
 The pipeline assumes that the necessary tools (Kaniko for building images, AWS CLI for interacting with AWS services) are available docker agents, and that the Jenkins environment has the necessary permissions to interact with AWS services like ECR and ECS.
 
-## databases backup script (should be in separate repo but included here for simplicity)
+## Databases backup script (should be in separate repo but included here for simplicity)
 
 Usage
 The script is run from the command line with various options:
 
-It's already used by schedule jenkins jobs 
+It's already used by schedule jenkins jobs
+
 Jobs url :- https://jenkins.amjad-salhab.com/job/DB_BACKUPS/
 
 Jenkins username/password
+
 username:- chalktalk
 password:- chalktalk123
 
@@ -126,3 +127,7 @@ If the mode is full, the script uses the mysqldump command to backup the entire 
 
 If the mode is custom, the script creates a directory named custom and uses mysqldump to backup each specified table to a separate file in this directory. It then compresses the directory into a tarball named custom.tar.gz and uploads it to an S3 bucket
 The script assumes that the AWS CLI is installed and configured with the necessary permissions to upload files to the specified S3 bucket
+
+
+## Regards
+## By Amjad Salhab
